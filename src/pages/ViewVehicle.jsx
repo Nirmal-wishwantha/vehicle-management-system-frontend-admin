@@ -12,42 +12,42 @@ import AddVehicle from './AddVehicle';
 export default function ViewVehicle() {
   const [vahicle, setVahicle] = useState([]);
 
-  const [vehicleImages, setVehicleImages] = useState({}); // Hold images based on vehicle IDs
+  const [vehicleImages, setVehicleImages] = useState({});
 
   useEffect(() => {
     loadData();
-  
+
     return () => {
       Object.values(vehicleImages).forEach(imageUrl => {
         URL.revokeObjectURL(imageUrl);
       });
     };
   }, []);
-  
+
 
 
   const loadData = () => {
     instance.get('/vehicle')
       .then((res) => {
         setVahicle(res.data);
-        
-        // Fetch image for each vehicle based on its ID
+
+
         res.data.forEach(vehicle => {
-          getimg(vehicle.id); // Fetch image for each vehicle
+          getimg(vehicle.id);
         });
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  
+
 
 
   const getimg = (id) => {
     instance.get(`vehicle/get/image/${id}`, { responseType: 'blob' })
       .then((res) => {
         const imageUrl = URL.createObjectURL(res.data);
-        
+
         // Set image URL for the specific vehicle ID
         setVehicleImages(prevImages => ({
           ...prevImages,
@@ -58,8 +58,8 @@ export default function ViewVehicle() {
         console.log(err);
       });
   };
-  
-  
+
+
 
   // lord vehicle
 
@@ -105,9 +105,9 @@ export default function ViewVehicle() {
           icon: "success",
           title: "Deleted Successfully!"
         });
-        setTimeout(() => {
-          window.location.reload()
-        }, 1000);
+
+        loadData();
+
       })
       .catch((err) => {
         console.log(err);
@@ -207,9 +207,6 @@ export default function ViewVehicle() {
           handleUpdateClose();
 
           loadData();
-          setTimeout(() => {
-            window.location.reload()
-          }, 1000);
 
         })
         .catch((err) => {

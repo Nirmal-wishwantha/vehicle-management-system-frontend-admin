@@ -1,7 +1,8 @@
 import { TableRow, TableCell, Button } from '@mui/material';
 
 export default function ReservationRow({ number, reservationDate, reservationEmail,
-   reservationPhoneNumber, reservationPickupTime, reservationVehicleId, reservationId,Approve,Reject }) {
+  reservationPhoneNumber, reservationPickupTime, reservationVehicleId, reservationId, Approve, Reject,adminStatus,
+disableApprove,disableReject}) {
   return (
     <TableRow>
       <TableCell align='center'>{number}</TableCell>
@@ -11,17 +12,30 @@ export default function ReservationRow({ number, reservationDate, reservationEma
       <TableCell align='center'>{reservationPickupTime}</TableCell>
       <TableCell align='center'>{reservationPhoneNumber}</TableCell>
       <TableCell align='center'>{reservationVehicleId}</TableCell>
-      <TableCell align="center">
-        <Button variant="contained" color="success" sx={{ marginRight: 1 }}
-        onClick={Approve}
+      <TableCell align='center'>{adminStatus}</TableCell>
+
+      <TableCell align='center'>
+
+
+        <Button
+          variant="contained"
+          color="success"
+          sx={{ margin: 1 }}
+          onClick={Approve}
+          disabled={disableApprove}
         >
           Approve
         </Button>
-        <Button variant="contained" color="error"
-        onClick={Reject}
+
+        <Button
+          variant="contained"
+          color="error"
+          onClick={Reject}
+          disabled={disableReject}
         >
           Reject
         </Button>
+
       </TableCell>
     </TableRow>
   );

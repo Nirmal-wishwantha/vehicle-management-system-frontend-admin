@@ -6,18 +6,23 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FormatListNumberedRtlIcon from '@mui/icons-material/FormatListNumberedRtl';
 import ViewReservation from "../../pages/ViewReservation";
 import Reservation from "../../pages/Reservation";
+import DirectionsCarFilledRoundedIcon from '@mui/icons-material/DirectionsCarFilledRounded';
+import RejectReserve from "../../pages/RejectReserve";
+import ApproveReserve from "../../pages/approveReserve";
+import GppBadRoundedIcon from '@mui/icons-material/GppBadRounded';
+import BeenhereRoundedIcon from '@mui/icons-material/BeenhereRounded';
 
 
 
 const routes = [
 
-    {
-        path: '/home',
-        Element: <Home />,
-        text: 'Home',
-        icon: <HouseIcon />
+    // {
+    //     path: '/home',
+    //     Element: <Home />,
+    //     text: 'Home',
+    //     icon: <HouseIcon />
 
-    },
+    // },
 
     {
         path: '/reservation',
@@ -25,14 +30,28 @@ const routes = [
         text: 'ViewReservation',
         icon: <FormatListNumberedRtlIcon />
     },
+ 
+    {
+        path: '/approve',
+        Element: <ApproveReserve/>,
+        text: 'Approve Reserve',
+        icon: <BeenhereRoundedIcon/>
+    },
 
+    {
+        path: '/reject',
+        Element: <RejectReserve />,
+        text: 'Reject Reserve',
+        icon: <GppBadRoundedIcon/>
+    },
 
     {
         path: '/vehicle',
         Element: <ViewVehicle />,
-        text: 'Delete Vehicle',
-        icon: <DeleteIcon />
-    }
+        text: 'Vehicle Manage',
+        icon: <DirectionsCarFilledRoundedIcon />
+    },
+
 
 ]
 
