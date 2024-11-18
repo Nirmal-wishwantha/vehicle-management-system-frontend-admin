@@ -112,7 +112,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function App() {
 
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('login',)
@@ -133,8 +133,10 @@ export default function App() {
 
       {
         login ? <Main /> : <Routes>
+
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='*' element={<Navigate to='/login' />} />
         </Routes>
       }
 
@@ -182,117 +184,130 @@ function Main() {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
 
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} sx={{ backgroundColor: '#0D47A1' }}>
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={[
-              {
-                marginRight: 5,
-              },
-              open && { display: 'none' },
-            ]}
+            sx={[{
+              marginRight: 5,
+            }, open && { display: 'none' }]}
           >
             <MenuIcon />
           </IconButton>
 
-          <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, color: '#BBDEFB' }}>
+            Riyapola Admin Dashboard
           </Typography>
 
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button onClick={() => logOut()} sx={{ color: 'white' }}>LogOut</Button>
+          <Box sx={{ display: 'flex' }}>
+            <Button
+              variant="contained"
+              onClick={() => logOut()}
+              sx={{
+                color: '#FFFFFF', 
+                backgroundColor: '#C51162', 
+                '&:hover': {
+                  backgroundColor: '#D81B60',
+                },
+              }}>
+              LogOut
+            </Button>
           </Box>
 
         </Toolbar>
-
       </AppBar>
 
-
-      <Drawer variant="permanent" open={open}>
-
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+      <Drawer variant="permanent" open={open} sx={{ backgroundColor: '#E3F2FD' }}>
+        <DrawerHeader sx={{ backgroundColor: '#BBDEFB' }}>
+          <IconButton
+            onClick={handleDrawerClose}
+            sx={{ color: '#000000' }}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
 
-        <Divider />
+        <Divider sx={{ backgroundColor: '#0D47A1' }} />
+
 
         <List>
-          {
-            routes.map((val, index) =>
-
-              <Link key={index} to={val.path} style={{ textDecoration: 'none', color: 'black' }}>
-
-                <ListItem disablePadding sx={{ display: 'block' }}>
-                  <ListItemButton
+          {routes.map((val, index) => (
+            <Link key={index} to={val.path} style={{ textDecoration: 'none' }}>
+              <ListItem disablePadding sx={{ display: 'block',marginBottom:1}}>
+                <ListItemButton
+                  sx={[
+                    {
+                      minHeight: 48,
+                      px: 2.5,
+                      borderRadius: '8px', 
+                      backgroundColor: open ? '#E3F2FD' : 'transparent',
+                      color: '#0D47A1',
+                      '&:hover': {
+                        backgroundColor: '#BBDEFB',
+                        color: '#880e4f',
+                      },
+                    },
+                    open
+                      ? {
+                        justifyContent: 'initial',
+                      }
+                      : {
+                        justifyContent: 'center',
+                      },
+                  ]}
+                >
+                  <ListItemIcon
                     sx={[
                       {
-                        minHeight: 48,
-                        px: 2.5,
+                        minWidth: 0,
+                        justifyContent: 'center',
+                        color: 'inherit',
                       },
                       open
                         ? {
-                          justifyContent: 'initial',
+                          mr: 3,
                         }
                         : {
-                          justifyContent: 'center',
+                          mr: 'auto',
                         },
                     ]}
                   >
-                    <ListItemIcon
-                      sx={[
-                        {
-                          minWidth: 0,
-                          justifyContent: 'center',
+                    {val.icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={val.text}
+                    sx={[
+                      open
+                        ? {
+                          opacity: 1,
+                          color: 'inherit',
+                          fontWeight: 'bold',
+                        }
+                        : {
+                          opacity: 0,
                         },
-                        open
-                          ? {
-                            mr: 3,
-                          }
-                          : {
-                            mr: 'auto',
-                          },
-                      ]}
-                    >
-                      {val.icon}
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={val.text}
-                      sx={[
-                        open
-                          ? {
-                            opacity: 1,
-                          }
-                          : {
-                            opacity: 0,
-                          },
-                      ]}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              </Link>
-            )
-
-          }
-
+    
+                    ]}
+                  />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          ))}
         </List>
-        <Divider />
 
+        <Divider sx={{ backgroundColor: '#0D47A1' }} />
       </Drawer>
+
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-
         <Routes>
           {getRouts()}
         </Routes>
-
       </Box>
     </Box>
+
   );
 
 }

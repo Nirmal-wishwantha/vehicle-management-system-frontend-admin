@@ -10,13 +10,13 @@ import Box from '@mui/material/Box';
 import UploadIcon from '@mui/icons-material/Upload';
 import NoCrashIcon from '@mui/icons-material/NoCrash';
 
-export default function ProfileCard({ brand, model, price,imageUrl, description, onDelete, onUpdate,number,onReserve }) {
+export default function ProfileCard({ brand, model, price,imageUrl, description, onDelete, onUpdate,number,onReserve,color }) {
   return (
     <div>
       <Card sx={{ maxWidth: 345 }}>
         <CardActionArea>
 
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h5" component="div" sx={{color:{color}}}>
             {number}
           </Typography>
 
@@ -38,6 +38,7 @@ export default function ProfileCard({ brand, model, price,imageUrl, description,
             <Typography gutterBottom variant="h5" component="div">
              Price Rs: {price}
             </Typography>
+
 
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               {description}
